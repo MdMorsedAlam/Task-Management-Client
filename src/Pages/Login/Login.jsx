@@ -1,15 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/UseAuth/useAuth";
-import {  BsEyeFill,
-  BsEyeSlashFill, BsFacebook, BsGithub, BsGoogle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import {
+  BsEyeFill,
+  BsEyeSlashFill,
+  BsFacebook,
+  BsGithub,
+  BsGoogle,
+} from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 const Login = () => {
   const { googleLogin, userLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handelGoogleLogin = () => {
     googleLogin()
@@ -35,13 +41,43 @@ const Login = () => {
 
   const onSubmit = (data) => {
     userLogin(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
+      .then(() => {
+        toast.success("Login Success", {
+          duration: 3000, // Duration in milliseconds
+          position: "top-right", // Toast position on the screen
+          style: {
+            backgroundColor: "green",
+            color: "white",
+          },
+        });
+        navigate("/");
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch();
   };
+
+  const handelFacebookLogin = () => {
+    toast.error("I Am Working On It", {
+      duration: 3000, // Duration in milliseconds
+      position: "top-right", // Toast position on the screen
+      style: {
+        backgroundColor: "red",
+        color: "white",
+      },
+    });
+  };
+  const handelGithubLogin = () => {
+    toast.error("I Am Working On It", {
+      duration: 3000, // Duration in milliseconds
+      position: "top-right", // Toast position on the screen
+      style: {
+        backgroundColor: "red",
+        color: "white",
+      },
+    });
+  };
+
+
+  
 
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
@@ -64,14 +100,14 @@ const Login = () => {
         <div className="space-y-1 relative text-sm">
           <label className="block font-semibold text-gray-400">Password</label>
           <input
-            type={`${showPassword?"text":"password"}`}
+            type={`${showPassword ? "text" : "password"}`}
             name="password"
             {...register("password", { required: true })}
             placeholder="Password"
             className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
           />
           {showPassword ? (
-            <BsEyeFill 
+            <BsEyeFill
               onClick={() => setShowPassword(!showPassword)}
               className="absolute text-2xl right-2 top-8"
             />
@@ -107,10 +143,14 @@ const Login = () => {
         >
           <BsGoogle className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
-        <button aria-label="Log in with Twitter" className="p-3 rounded-sm">
+        <button
+          onClick={handelFacebookLogin}
+          aria-label="Log in with Twitter"
+          className="p-3 rounded-sm"
+        >
           <BsFacebook className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
-        <button aria-label="Log in with GitHub" className="p-3 rounded-sm">
+        <button onClick={handelGithubLogin} aria-label="Log in with GitHub" className="p-3 rounded-sm">
           <BsGithub className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
       </div>

@@ -1,5 +1,5 @@
 import {
- BsEyeFill,
+  BsEyeFill,
   BsEyeSlashFill,
   BsFacebook,
   BsGithub,
@@ -11,12 +11,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import profile from "../../assets/user.png"
+import profile from "../../assets/user.png";
 
 const Register = () => {
-  const { googleLogin, createUser,updateUser} = useAuth();
+  const { googleLogin, createUser, updateUser, logOut } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handelGoogleLogin = () => {
     googleLogin()
@@ -29,7 +29,7 @@ const Register = () => {
             color: "white",
           },
         });
-        navigate("/")
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.message);
@@ -42,39 +42,58 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-   createUser(data.email, data.password)
+    createUser(data.email, data.password)
       .then((res) => {
-       if(res.user){
-        updateUser(data.name,profile)
-        .then(()=>{
-         toast.success("You Have successfully Created A New Account!", {
-          duration: 3000, // Duration in milliseconds
-          position: "top-right", // Toast position on the screen
-          style: {
-            backgroundColor: "green",
-            color: "white",
-          },
-        });
-        navigate("/")
-        })
-        .catch(err=>{
-         console.log(err.message);
-        })
-
-       }
+        if (res.user) {
+          updateUser(data.name, profile)
+            .then(() => {
+              toast.success("You Have successfully Created A New Account!", {
+                duration: 3000, // Duration in milliseconds
+                position: "top-right", // Toast position on the screen
+                style: {
+                  backgroundColor: "green",
+                  color: "white",
+                },
+              });
+              logOut()
+                .then(() => {
+                  navigate("/login");
+                })
+                .catch();
+            })
+            .catch();
+        }
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch();
   };
+  const handelFacebookLogin = () => {
+   toast.error("I Am Working On It", {
+     duration: 3000, // Duration in milliseconds
+     position: "top-right", // Toast position on the screen
+     style: {
+       backgroundColor: "red",
+       color: "white",
+     },
+   });
+ };
+ const handelGithubLogin = () => {
+   toast.error("I Am Working On It", {
+     duration: 3000, // Duration in milliseconds
+     position: "top-right", // Toast position on the screen
+     style: {
+       backgroundColor: "red",
+       color: "white",
+     },
+   });
+ };
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
-     <Helmet>
+      <Helmet>
         <title>Register | Task Management</title>
       </Helmet>
       <h1 className="text-4xl font-bold text-center">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="space-y-1 text-sm">
+        <div className="space-y-1 text-sm">
           <label className="block font-semibold text-gray-400">Full Name</label>
           <input
             type="text"
@@ -116,7 +135,7 @@ const Register = () => {
             className="w-full px-4 py-3 rounded-md text-black"
           />
           {showPassword ? (
-            <BsEyeFill 
+            <BsEyeFill
               onClick={() => setShowPassword(!showPassword)}
               className="absolute text-2xl text-black right-2 top-8"
             />
@@ -129,7 +148,6 @@ const Register = () => {
           {errors.password && (
             <p className="text-red-500">Password Is Not Match</p>
           )}
-          
         </div>
         <button className="block w-full p-3 text-center rounded-sm bg-gradient-to-r from-yellow-400 hover:text-white transition-all duration-1000 to-emerald-500 text-black font-semibold hover:bg-gradient-to-l text-xl ">
           Register
@@ -148,10 +166,10 @@ const Register = () => {
         >
           <BsGoogle className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
-        <button aria-label="Log in with Twitter" className="p-3 rounded-sm">
+        <button onClick={handelFacebookLogin} aria-label="Log in with Twitter" className="p-3 rounded-sm">
           <BsFacebook className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
-        <button aria-label="Log in with GitHub" className="p-3 rounded-sm">
+        <button onClick={handelGithubLogin} aria-label="Log in with GitHub" className="p-3 rounded-sm">
           <BsGithub className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
       </div>
