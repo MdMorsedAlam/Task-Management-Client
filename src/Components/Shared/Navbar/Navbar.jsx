@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { BsJustify } from "react-icons/bs";
+import { BsJustify, BsX } from "react-icons/bs";
 import { useState } from "react";
 import useAuth from "../../../Hooks/UseAuth/useAuth";
 import toast from "react-hot-toast";
@@ -46,38 +46,35 @@ const Navbar = () => {
           },
         });
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        
       });
   };
   return (
     <header className="px-4 bg-gray-800 text-gray-100">
       <div className="container flex justify-between items-center h-16 mx-auto">
-        <div className="flex">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            aria-label="Back to homepage"
-            className="flex items-center p-2"
+        <div className="flex gap-20">
+          <Link to="/"
+            className="flex items-center bg-gradient-to-r from-emerald-500 to-yellow-500 bg-clip-text text-transparent uppercase font-bold text-4xl p-2"
           >
-            Logo
-          </a>
+            Task Management
+          </Link>
           <ul className="items-stretch hidden space-x-3 lg:flex">{nav}</ul>
         </div>
         {user ? (
-          <div className="dropdown dropdown-end">
+          <div className="dropdown hidden lg:block dropdown-end">
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
+                <img alt={user.photoURL} src={user.photoURL} />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-0 ml-0 z-[1] p-2 bg-[#1f2937] rounded-box w-52"
             >
               <li>
                 <Link>Dashboard</Link>
@@ -94,7 +91,7 @@ const Navbar = () => {
           <div className="items-center flex-shrink-0 hidden lg:flex">
             <Link
               to="/login"
-              className="px-8 py-3 font-semibold rounded bg-violet-400 text-gray-900"
+              className="px-8 py-3 font-semibold rounded bg-gradient-to-r from-yellow-400 hover:text-white transition-all duration-1000 to-emerald-500 text-black hover:bg-gradient-to-l"
             >
               Log in
             </Link>
@@ -103,16 +100,17 @@ const Navbar = () => {
 
         <button
           onClick={() => setShowToggle(!showToggle)}
-          className="text-2xl lg:hidden"
+          className="text-3xl lg:hidden transition-all duration-1000"
         >
-          <BsJustify />
+          
+          {showToggle?<BsX />:<BsJustify />}
         </button>
         <div
-          className={`items-stretch ${
+          className={`items-stretch lg:hidden ${
             showToggle ? "flex" : "hidden"
-          } flex-col rounded-lg absolute right-0 top-16 bg-slate-400 p-3`}
+          } flex-col rounded-l-lg w-40 transition-all duration-1000 absolute right-0 top-16 bg-[#1f2937] p-3`}
         >
-          <ul className="flex flex-col gap-3">{nav}</ul>
+          <ul className="flex flex-col items-center gap-3">{nav}</ul>
           <hr className="my-3" />
           {user ? (
             <ul className="flex flex-col items-center gap-3">

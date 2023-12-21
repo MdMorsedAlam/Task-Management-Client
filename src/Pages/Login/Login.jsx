@@ -6,6 +6,7 @@ import {  BsEyeFill,
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const { googleLogin, userLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +45,9 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+      <Helmet>
+        <title>Login | Task Management</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1 text-sm">

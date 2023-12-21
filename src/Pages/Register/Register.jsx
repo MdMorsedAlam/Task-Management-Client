@@ -5,15 +5,18 @@ import {
   BsGithub,
   BsGoogle,
 } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/UseAuth/useAuth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
+import profile from "../../assets/user.png"
 
 const Register = () => {
-  const { googleLogin, userLogin } = useAuth();
+  const { googleLogin, createUser,updateUser} = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate=useNavigate()
 
   const handelGoogleLogin = () => {
     googleLogin()
@@ -26,6 +29,7 @@ const Register = () => {
             color: "white",
           },
         });
+        navigate("/")
       })
       .catch((err) => {
         console.log(err.message);
@@ -38,9 +42,26 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    userLogin(data.email, data.password)
+   createUser(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
+       if(res.user){
+        updateUser(data.name,profile)
+        .then(()=>{
+         toast.success("You Have successfully Created A New Account!", {
+          duration: 3000, // Duration in milliseconds
+          position: "top-right", // Toast position on the screen
+          style: {
+            backgroundColor: "green",
+            color: "white",
+          },
+        });
+        navigate("/")
+        })
+        .catch(err=>{
+         console.log(err.message);
+        })
+
+       }
       })
       .catch((err) => {
         console.log(err.message);
@@ -48,6 +69,9 @@ const Register = () => {
   };
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+     <Helmet>
+        <title>Register | Task Management</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="space-y-1 text-sm">
@@ -57,9 +81,9 @@ const Register = () => {
             name="name"
             {...register("name", { required: true })}
             placeholder="Enter Your Full Name"
-            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+            className="w-full px-4 py-3 rounded-md text-black"
           />
-          {errors.name && <p className="text-red-500">Email Is Required</p>}
+          {errors.name && <p className="text-red-500">Name Is Required</p>}
         </div>
         <div className="space-y-1 text-sm">
           <label className="block font-semibold text-gray-400">Email</label>
@@ -68,9 +92,19 @@ const Register = () => {
             name="email"
             {...register("email", { required: true })}
             placeholder="Enter Your Email"
-            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+            className="w-full px-4 text-black py-3 rounded-md"
           />
-          {errors.email && <p className="text-red-500">Email Is Not Valid</p>}
+          {errors.email && <p className="text-red-500">Email Is Required</p>}
+        </div>
+        <div className="space-y-1 text-sm">
+          <label className="block font-semibold text-gray-400">Photo</label>
+          <input
+            type="file"
+            name="photo"
+            {...register("photo", { required: true })}
+            className="file-input text-black file-input-bordered w-full"
+          />
+          {errors.photo && <p className="text-red-500">Photo Required</p>}
         </div>
         <div className="space-y-1 relative text-sm">
           <label className="block font-semibold text-gray-400">Password</label>
@@ -79,17 +113,17 @@ const Register = () => {
             name="password"
             {...register("password", { required: true })}
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+            className="w-full px-4 py-3 rounded-md text-black"
           />
           {showPassword ? (
             <BsEyeFill 
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl right-2 top-8"
+              className="absolute text-2xl text-black right-2 top-8"
             />
           ) : (
             <BsEyeSlashFill
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl right-2 top-8"
+              className="absolute text-2xl text-black right-2 top-8"
             />
           )}
           {errors.password && (
