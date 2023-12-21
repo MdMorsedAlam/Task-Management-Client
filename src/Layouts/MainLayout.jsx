@@ -1,10 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "../Components/Shared/Navbar/Navbar";
 
 const MainLayout = () => {
+  const location = useLocation();
+  const headerFooter =
+    location.pathname.includes("login") ||
+    location.pathname.includes("register");
   return (
     <div>
-      <h1>this is main layout</h1>
-      <Outlet/>
+      {headerFooter || <Navbar />}
+
+      <Outlet />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import MainLayout from "../Layouts/MainLayout";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
 
 const myRouter = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const myRouter = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path:"/register",
+        element:<Register/>
+      }
     ],
   },
 ]);

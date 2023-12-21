@@ -1,12 +1,17 @@
-/* eslint-disable react/no-unescaped-entities */
-import toast from "react-hot-toast";
-import useAuth from "../../Hooks/UseAuth/useAuth";
-import {  BsEyeFill,
-  BsEyeSlashFill, BsFacebook, BsGithub, BsGoogle } from "react-icons/bs";
+import {
+ BsEyeFill,
+  BsEyeSlashFill,
+  BsFacebook,
+  BsGithub,
+  BsGoogle,
+} from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import useAuth from "../../Hooks/UseAuth/useAuth";
 import { useState } from "react";
-const Login = () => {
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
+const Register = () => {
   const { googleLogin, userLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,11 +46,21 @@ const Login = () => {
         console.log(err.message);
       });
   };
-
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
-      <h1 className="text-4xl font-bold text-center">Login</h1>
+      <h1 className="text-4xl font-bold text-center">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div className="space-y-1 text-sm">
+          <label className="block font-semibold text-gray-400">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            {...register("name", { required: true })}
+            placeholder="Enter Your Full Name"
+            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+          />
+          {errors.name && <p className="text-red-500">Email Is Required</p>}
+        </div>
         <div className="space-y-1 text-sm">
           <label className="block font-semibold text-gray-400">Email</label>
           <input
@@ -60,7 +75,7 @@ const Login = () => {
         <div className="space-y-1 relative text-sm">
           <label className="block font-semibold text-gray-400">Password</label>
           <input
-            type={`${showPassword?"text":"password"}`}
+            type={`${showPassword ? "text" : "password"}`}
             name="password"
             {...register("password", { required: true })}
             placeholder="Password"
@@ -80,19 +95,15 @@ const Login = () => {
           {errors.password && (
             <p className="text-red-500">Password Is Not Match</p>
           )}
-          <div className="flex justify-end text-xs text-gray-400">
-            <Link to="#" className="text-sm">
-              Forgot Password?
-            </Link>
-          </div>
+          
         </div>
         <button className="block w-full p-3 text-center rounded-sm bg-gradient-to-r from-yellow-400 hover:text-white transition-all duration-1000 to-emerald-500 text-black font-semibold hover:bg-gradient-to-l text-xl ">
-          Login
+          Register
         </button>
       </form>
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
-        <p className="px-3 text-lg text-gray-400">Login with social accounts</p>
+        <p className="px-3 text-lg text-gray-400">Login With Social Accounts</p>
         <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
       </div>
       <div className="flex justify-center space-x-4">
@@ -111,14 +122,13 @@ const Login = () => {
         </button>
       </div>
       <p className="text-md text-center sm:px-6 text-gray-400">
-        Create A New account ?
-        <Link className="italic text-sky-500" to="/register">
-          {" "}
-          Register
+        You Have An Account ?
+        <Link className="italic text-sky-500" to="/login">
+          Login
         </Link>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default Register;
