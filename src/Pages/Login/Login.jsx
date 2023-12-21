@@ -28,10 +28,9 @@ const Login = () => {
             color: "white",
           },
         });
+        navigate("/");
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch();
   };
   const {
     register,
@@ -87,34 +86,34 @@ const Login = () => {
       <h1 className="text-4xl font-bold text-center">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1 text-sm">
-          <label className="block font-semibold text-gray-400">Email</label>
+          <label className="block font-semibold text-lg text-gray-400">Email</label>
           <input
             type="text"
             name="email"
             {...register("email", { required: true })}
             placeholder="Enter Your Email"
-            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+            className="w-full px-4 text-lg py-3 rounded-md text-black"
           />
           {errors.email && <p className="text-red-500">Email Is Not Valid</p>}
         </div>
         <div className="space-y-1 relative text-sm">
-          <label className="block font-semibold text-gray-400">Password</label>
+          <label className="block text-lg font-semibold text-gray-400">Password</label>
           <input
             type={`${showPassword ? "text" : "password"}`}
             name="password"
             {...register("password", { required: true })}
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-md border-green-700 focus:border-green-400"
+            className="w-full px-4 text-lg py-3 rounded-md text-black"
           />
           {showPassword ? (
             <BsEyeFill
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl right-2 top-8"
+              className="absolute text-2xl text-black right-2 top-10"
             />
           ) : (
             <BsEyeSlashFill
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl right-2 top-8"
+              className="absolute text-black text-2xl right-2 top-10"
             />
           )}
           {errors.password && (

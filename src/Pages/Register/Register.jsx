@@ -94,55 +94,55 @@ const Register = () => {
       <h1 className="text-4xl font-bold text-center">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1 text-sm">
-          <label className="block font-semibold text-gray-400">Full Name</label>
+          <label className="block font-semibold text-lg text-gray-400">Full Name</label>
           <input
             type="text"
             name="name"
             {...register("name", { required: true })}
             placeholder="Enter Your Full Name"
-            className="w-full px-4 py-3 rounded-md text-black"
+            className="w-full px-4 py-3 rounded-md text-lg text-black"
           />
           {errors.name && <p className="text-red-500">Name Is Required</p>}
         </div>
         <div className="space-y-1 text-sm">
-          <label className="block font-semibold text-gray-400">Email</label>
+          <label className="block font-semibold text-lg text-gray-400">Email</label>
           <input
             type="text"
             name="email"
             {...register("email", { required: true })}
             placeholder="Enter Your Email"
-            className="w-full px-4 text-black py-3 rounded-md"
+            className="w-full px-4 text-black text-lg py-3 rounded-md"
           />
           {errors.email && <p className="text-red-500">Email Is Required</p>}
         </div>
         <div className="space-y-1 text-sm">
-          <label className="block font-semibold text-gray-400">Photo</label>
+          <label className="block font-semibold text-lg text-gray-400">Photo</label>
           <input
             type="file"
             name="photo"
             {...register("photo", { required: true })}
-            className="file-input text-black file-input-bordered w-full"
+            className="file-input text-black text-lg file-input-bordered w-full"
           />
           {errors.photo && <p className="text-red-500">Photo Required</p>}
         </div>
         <div className="space-y-1 relative text-sm">
-          <label className="block font-semibold text-gray-400">Password</label>
+          <label className="block font-semibold text-lg text-gray-400">Password</label>
           <input
             type={`${showPassword ? "text" : "password"}`}
             name="password"
             {...register("password", { required: true })}
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-md text-black"
+            className="w-full px-4 py-3 text-lg rounded-md text-black"
           />
           {showPassword ? (
             <BsEyeFill
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl text-black right-2 top-8"
+              className="absolute text-2xl text-black right-2 top-10"
             />
           ) : (
             <BsEyeSlashFill
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute text-2xl text-black right-2 top-8"
+              className="absolute text-2xl text-black right-2 top-10"
             />
           )}
           {errors.password && (
