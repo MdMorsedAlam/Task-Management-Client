@@ -26,6 +26,15 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* User Section */}
+      <section>
+      <h1 className="text-center font-bold mb-10 text-5xl">
+        Who Uses Our Application
+      </h1>
+      <div className="grid grid-cols-3 gap-10">
+      
+      </div>
+      </section>
     </div>
   );
 };
