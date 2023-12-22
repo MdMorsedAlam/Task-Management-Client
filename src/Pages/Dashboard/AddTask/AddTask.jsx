@@ -1,13 +1,31 @@
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../../Hooks/UseAxiosPublic/useAxiosPublic";
+import toast from "react-hot-toast";
+import useAuth from "../../../Hooks/UseAuth/useAuth";
 const AddTask = () => {
+  const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const task = { ...data, email: user.email, status: "Todo" };
+    const result = await axiosPublic.post("/tasks", task);
+    if (result.data.insertedId) {
+      toast.success("successfully Added New Task!", {
+        duration: 3000, // Duration in milliseconds
+        position: "top-right", // Toast position on the screen
+        style: {
+          backgroundColor: "green",
+          color: "white",
+        },
+      });
+    }
+    reset();
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -39,9 +57,9 @@ const AddTask = () => {
               <option disabled selected>
                 Select Priority
               </option>
-              <option >Low</option>
-              <option >Moderate</option>
-              <option >High</option>
+              <option>Low</option>
+              <option>Moderate</option>
+              <option>High</option>
             </select>
           </div>
           <div className="form-control">
