@@ -34,8 +34,8 @@ const DashboardLayout = () => {
   }
   return (
   <>
-  <div className="grid grid-cols-4">
-  <div className="col-span-1 h-[100vh] bg-gray-600 p-10">
+  <div className="grid grid-cols-6">
+  <div className="col-span-1 min-h-screen bg-gray-600 p-10">
   {
    isOpen?<BsX
    className="text-5xl w-20 mx-auto text-white mb-6 cursor-pointer"
@@ -58,7 +58,7 @@ const DashboardLayout = () => {
       </div>
     </motion.nav>
   </div>
-  <div className="col-span-3">
+  <div className="col-span-5">
    <Outlet/>
   </div>
   </div>
