@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { BsJustify } from "react-icons/bs";
+import { BsJustify, BsX } from "react-icons/bs";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/UseAuth/useAuth";
 import toast from "react-hot-toast";
@@ -16,8 +16,7 @@ const DashboardLayout = () => {
   const nav=<>
   <li><NavLink to="/dashboard">Home</NavLink></li>
   <li><NavLink to="profile">Profile</NavLink></li>
-  <li><NavLink to="addtask">Add Task</NavLink></li>
-  <li><NavLink to="managetask">Manage Task</NavLink></li>
+  <li><NavLink to="addtask">Create New Task</NavLink></li>
   </>
   const handelLogout=()=>{
    logOut()
@@ -35,12 +34,17 @@ const DashboardLayout = () => {
   }
   return (
   <>
-  <div className="grid grid-cols-4 gap-4">
+  <div className="grid grid-cols-4">
   <div className="col-span-1 h-[100vh] bg-gray-600 p-10">
-  <BsJustify
-        className="text-5xl w-20 mx-auto text-white mb-6 cursor-pointer"
-        onClick={()=>{setIsOpen(!isOpen)}}
-      />
+  {
+   isOpen?<BsX
+   className="text-5xl w-20 mx-auto text-white mb-6 cursor-pointer"
+   onClick={()=>{setIsOpen(!isOpen)}}
+ />:<BsJustify
+   className="text-5xl w-20 mx-auto text-white mb-6 cursor-pointer"
+   onClick={()=>{setIsOpen(!isOpen)}}
+ />
+  }
     <motion.nav animate={isOpen ? "open" : "closed"} variants={variants}> 
       <div className="text-center text-white">
       <ul className="flex flex-col gap-3">

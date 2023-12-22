@@ -8,7 +8,6 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import AddTask from "../Pages/Dashboard/AddTask/AddTask";
-import ManageTask from "../Pages/Dashboard/ManageTask/ManageTask";
 import PrivateRoute from "./PrivateRoute";
 
 const myRouter = createBrowserRouter([
@@ -46,10 +45,7 @@ const myRouter = createBrowserRouter([
         path:"addtask",
         element:<AddTask/>
       },
-      {
-        path:"managetask",
-        element:<ManageTask/>
-      }
+      
     ]
   }
 ]);
