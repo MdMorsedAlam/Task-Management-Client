@@ -51,7 +51,16 @@ const Login = () => {
         });
         navigate("/");
       })
-      .catch();
+      .catch(() => {
+        toast.error("Invalid Email Or Password", {
+          duration: 3000, // Duration in milliseconds
+          position: "top-right", // Toast position on the screen
+          style: {
+            backgroundColor: "red",
+            color: "white",
+          },
+        });
+      });
   };
 
   const handelFacebookLogin = () => {
@@ -75,9 +84,6 @@ const Login = () => {
     });
   };
 
-
-  
-
   return (
     <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
       <Helmet>
@@ -86,7 +92,9 @@ const Login = () => {
       <h1 className="text-4xl font-bold text-center">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1 text-sm">
-          <label className="block font-semibold text-lg text-gray-400">Email</label>
+          <label className="block font-semibold text-lg text-gray-400">
+            Email
+          </label>
           <input
             type="text"
             name="email"
@@ -97,7 +105,9 @@ const Login = () => {
           {errors.email && <p className="text-red-500">Email Is Not Valid</p>}
         </div>
         <div className="space-y-1 relative text-sm">
-          <label className="block text-lg font-semibold text-gray-400">Password</label>
+          <label className="block text-lg font-semibold text-gray-400">
+            Password
+          </label>
           <input
             type={`${showPassword ? "text" : "password"}`}
             name="password"
@@ -149,7 +159,11 @@ const Login = () => {
         >
           <BsFacebook className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
-        <button onClick={handelGithubLogin} aria-label="Log in with GitHub" className="p-3 rounded-sm">
+        <button
+          onClick={handelGithubLogin}
+          aria-label="Log in with GitHub"
+          className="p-3 rounded-sm"
+        >
           <BsGithub className="text-2xl hover:animate-ping transition-all duration-500" />
         </button>
       </div>

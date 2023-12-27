@@ -8,16 +8,18 @@ const useTasks = () => {
 
   const {
     data: taskss = [],
-    isLoading: loading,
     refetch,
+    isLoading: loading,
   } = useQuery({
-    queryKey: ["tasks",user?.email],
+    queryKey: ["tasks", user?.email],
     queryFn: async () => {
-      const res = await axiosPublic(`/tasks/${user.email}`, {email:"user?.email"} );
+      const res = await axiosPublic(`/tasks/${user.email}`, {
+        email: "user?.email",
+      });
       return res.data;
     },
   });
-  return [taskss, loading, refetch];
+  return [taskss, refetch, loading];
 };
 
 export default useTasks;

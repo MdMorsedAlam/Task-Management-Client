@@ -9,6 +9,10 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import AddTask from "../Pages/Dashboard/AddTask/AddTask";
 import PrivateRoute from "./PrivateRoute";
+import Blogs from "../Pages/Blogs/Blogs";
+import Contact from "../Pages/Contact/Contact";
+import About from "../Pages/About/About";
+import UpdateTask from "../Pages/Dashboard/UpdateTask/UpdateTask";
 
 const myRouter = createBrowserRouter([
   {
@@ -18,6 +22,18 @@ const myRouter = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path:"/about",
+        element:<About/>
+      },
+      {
+        path:"/contact",
+        element:<Contact/>
+      },
+      {
+        path:"/blogs",
+        element:<Blogs/>
       },
       {
         path: "/login",
@@ -45,6 +61,10 @@ const myRouter = createBrowserRouter([
         path:"addtask",
         element:<AddTask/>
       },
+      {
+        path:"updatetask/:id",
+        element:<UpdateTask/>
+      }
       
     ]
   }
